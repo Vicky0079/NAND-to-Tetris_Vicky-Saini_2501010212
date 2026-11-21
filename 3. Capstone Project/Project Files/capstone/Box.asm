@@ -1,0 +1,57 @@
+(MAIN)
+    @KBD
+    D=M
+    @DRAW
+    D;JNE
+    @ERASE
+    0;JMP
+
+(DRAW)
+    @16768
+    D=A
+    @ptr
+    M=D
+    @20
+    D=A
+    @count
+    M=D
+(DRAW_LOOP)
+    @ptr
+    A=M
+    M=-1
+    @32
+    D=A
+    @ptr
+    M=D+M       // CORRECTED: D+M instead of M+D
+    @count
+    M=M-1
+    D=M
+    @DRAW_LOOP
+    D;JGT
+    @MAIN
+    0;JMP
+
+(ERASE)
+    @16768
+    D=A
+    @ptr
+    M=D
+    @20
+    D=A
+    @count
+    M=D
+(ERASE_LOOP)
+    @ptr
+    A=M
+    M=0
+    @32
+    D=A
+    @ptr
+    M=D+M       // CORRECTED: D+M instead of M+D
+    @count
+    M=M-1
+    D=M
+    @ERASE_LOOP
+    D;JGT
+    @MAIN
+    0;JMP
